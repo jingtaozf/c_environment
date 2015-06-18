@@ -81,13 +81,13 @@ void pabort(const char *s);
 
 void init(void);
 
-void hw_pinMode(uint8_t, uint8_t);
+int hw_pinMode(uint8_t, uint8_t);
 void pinMode(uint8_t, uint8_t);
-void digitalWrite(uint8_t, uint8_t);
+int digitalWrite(uint8_t, uint8_t);
 int digitalRead(uint8_t);
 int analogRead(uint8_t);
 void analogReference(uint8_t mode);
-void analogWrite(uint8_t, int);
+int analogWrite(uint8_t, int);
 int pwmfreq_set(uint8_t pin, unsigned int freq);
 
 unsigned long millis(void);
@@ -126,8 +126,8 @@ extern char **argv;
 #include "Serial.h"
 
 //unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
-void tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 0);
-void noTone(uint8_t _pin);
+int tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 0);
+int noTone(uint8_t _pin);
 
 // WMath prototypes
 long random(long);

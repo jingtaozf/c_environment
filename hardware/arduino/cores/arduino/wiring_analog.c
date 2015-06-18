@@ -132,7 +132,7 @@ int analogRead(uint8_t pin)
         if ( ret <= 0 )
         {
             fprintf(stderr, "read adc %d failed\n", pin);
-            exit(-1);
+            return(-1);
         }
 
         memset((void *)str, 0, sizeof(str));
@@ -147,7 +147,7 @@ int analogRead(uint8_t pin)
     else
     {
         fprintf(stderr, "%s ERROR: invalid pin, pin=%d\n", __FUNCTION__, pin);
-        exit(-1);
+        return(-1);
     }      
     return ret;
 
@@ -215,12 +215,12 @@ int pwmfreq_set(uint8_t pin, unsigned int freq)
      else
      {
          fprintf(stderr, "%s ERROR: invalid pin, pin=%d\n", __FUNCTION__, pin);
-         exit(-1);
+         return(-1);
      } 
      return 0;
 }
 
-void analogWrite(uint8_t pin, int value)
+int analogWrite(uint8_t pin, int value)
 {
      int ret = -1;
      int fd = -1;
@@ -270,7 +270,8 @@ void analogWrite(uint8_t pin, int value)
      else
      {
          fprintf(stderr, "%s ERROR: invalid pin, pin=%d\n", __FUNCTION__, pin);
-         exit(-1);
+         return(-1);
      }      
+     return 0;
 }
 

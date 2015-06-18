@@ -15,7 +15,7 @@ static int write_to_file(int fd, char *str, int len)
     return ret;
 }
 
-void hw_pinMode(uint8_t pin, uint8_t mode)
+int hw_pinMode(uint8_t pin, uint8_t mode)
 {
     int fd;
      char buf[4];
@@ -29,15 +29,16 @@ void hw_pinMode(uint8_t pin, uint8_t mode)
          if ( ret <= 0 )
          {
              fprintf(stderr, "write gpio %d mode failed\n", pin);
-             exit(-1);
+             return (-1);
          }
      }
      else
      {
          fprintf(stderr, "%s ERROR: invalid pin or mode, pin=%d, mode=%d\n",
              __FUNCTION__, pin, mode);
-         exit(-1);
+         return(-1);
       }
+     return 0;
 }
 
 void pinMode(uint8_t pin, uint8_t mode)
@@ -85,7 +86,7 @@ void pinMode(uint8_t pin, uint8_t mode)
     }
 }
 
-void digitalWrite(uint8_t pin, uint8_t value)
+int digitalWrite(uint8_t pin, uint8_t value)
 {
     char buf[4]; 
      int ret = -1;
@@ -98,15 +99,16 @@ void digitalWrite(uint8_t pin, uint8_t value)
          if ( ret <= 0 )
          {
              fprintf(stderr, "write gpio %d  failed\n", pin);
-             exit(-1);
+             return(-1);
          }
      }
      else
      {
          fprintf(stderr, "%s ERROR: invalid pin or mode, pin=%d, value=%d\n",
              __FUNCTION__, pin, value);
-         exit(-1);
+         return(-1);
       }    
+     return 0;
 }
 
 int digitalRead(uint8_t pin)
@@ -125,7 +127,7 @@ int digitalRead(uint8_t pin)
         if ( ret <= 0 )
         {
             fprintf(stderr, "read gpio %d failed\n", pin);
-            exit(-1);
+            return(-1);
         }
         
         ret = buf[0] - '0';
@@ -142,7 +144,7 @@ int digitalRead(uint8_t pin)
     else
     {
         fprintf(stderr, "%s ERROR: invalid pin, pin=%d\n", __FUNCTION__, pin);
-        exit(-1);
+        return(-1);
     }      
     return ret;
 

@@ -67,6 +67,10 @@ all: $(LIB)
 $(LIB): $(OBJS)
 	$(AR) cq $(LIB_STATIC) $(OBJS)
 	$(CXX) -shared -Wl,-soname,$(LIB_SHARE) -o $(LIB_SHARE) $(OBJS)
+lib:
+	$(AR) cq $(LIB_STATIC) $(OBJS)
+	$(CXX) -shared -Wl,-soname,$(LIB_SHARE) -o $(LIB_SHARE) $(OBJS)
+
 
 clean:
 	rm -f $(LIB_STATIC) $(LIB_SHARE) $(OBJS)

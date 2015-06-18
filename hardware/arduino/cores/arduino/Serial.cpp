@@ -355,3 +355,40 @@ int HwSerial::process_recv()
 HwSerial::operator bool() {
     return true;
 }
+extern int Serial_begin(unsigned long x, byte config)
+{
+    Serial.begin(x,config);
+    return 1;
+}
+extern int Serial_end() 
+{
+    Serial.end();
+    return 1;
+}
+extern int Serial_available ()
+{
+    return Serial.available();
+}
+extern int Serial_peek ()
+{
+    return Serial.peek();
+}
+
+extern int Serial_read ()
+{
+    return Serial.read();
+}
+extern int Serial_flush ()
+{
+    Serial.flush();
+    return 1;
+}
+extern int Serial_write (byte n)
+{
+    return Serial.write(n);
+}
+
+extern int Serial_bool() 
+{
+    return 1;
+}

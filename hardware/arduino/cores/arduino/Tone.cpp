@@ -497,7 +497,7 @@ void findPWMSetting(unsigned int in_freq, unsigned int* pwm_source_div, unsigned
     *pwm_active_cycle = t[i].cycle / 2;
 }
 
-void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
+int tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 {
      int ret = -1;
      int fd = -1;
@@ -532,11 +532,12 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
      else
      {
          fprintf(stderr, "%s ERROR: invalid pin/frequency, pin=%d\n", __FUNCTION__, _pin);
-         exit(-1);
+         return(-1);
      }   
+     return 0;
 }
 
-void noTone(uint8_t _pin)
+int noTone(uint8_t _pin)
 {
      int ret = -1;
      int fd = -1;
@@ -562,6 +563,7 @@ void noTone(uint8_t _pin)
      else
      {
          fprintf(stderr, "%s ERROR: invalid pin, pin=%d\n", __FUNCTION__, _pin);
-         exit(-1);
+         return(-1);
      }   
+     return 0;
 }
