@@ -56,7 +56,7 @@ void delayMicrosecondsSched(unsigned int us)
 void pabort(const char *s)
 {
     perror(s);
-    abort();
+    // abort();
 }
 
 

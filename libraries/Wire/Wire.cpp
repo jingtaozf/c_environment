@@ -253,6 +253,19 @@ int TwoWire::read(void)
   return value;
 }
 
+uint8_t TwoWire::read_byte(void)
+{
+  uint8_t value = 0;
+  
+  // get each successive byte on each call
+  if(rxBufferIndex < rxBufferLength){
+    value = rxBuffer[rxBufferIndex];
+    ++rxBufferIndex;
+  }
+
+  return value;
+}
+
 // must be called in:
 // slave rx event callback
 // or after requestFrom(address, numBytes)
@@ -290,3 +303,56 @@ void TwoWire::onRequest( void (*function)(void) )
 
 TwoWire Wire;
 
+extern "C" void Wire_Begin()
+{
+  Wire.begin();
+}
+extern "C" void Wire_setBusFreq(unsigned int speed_hz)
+{
+  Wire.setBusFreq(speed_hz);
+}
+extern "C" uint8_t Wire_requestFrom(int address, int quantity)
+{
+  return Wire.requestFrom(address, quantity);
+}
+
+extern "C" void Wire_beginTransmission(int address)
+{
+  Wire.beginTransmission(address);
+}
+extern "C" uint8_t Wire_endTransmission()
+{
+  return Wire.endTransmission();
+}
+extern "C" int Wire_WriteByte(byte data)
+{
+  return Wire.write(data);
+}
+extern "C" int Wire_Write(const uint8_t *data, size_t quantity)
+{
+  return Wire.write(data,quantity);
+}
+extern "C" int Wire_available()
+{
+  return Wire.available();
+}
+
+extern "C" int Wire_read()
+{
+  return Wire.read();
+}
+
+extern "C" uint8_t Wire_read_byte()
+{
+  return Wire.read_byte();
+}
+
+extern "C" int Wire_peek()
+{
+  return Wire.peek();
+}
+extern "C" int Wire_flush()
+{
+  Wire.flush();
+  return 1;
+}

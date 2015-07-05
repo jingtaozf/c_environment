@@ -79,7 +79,7 @@ typedef uint32_t dword;
 
 void pabort(const char *s);
 
-void init(void);
+int init(void);
 
 int hw_pinMode(uint8_t, uint8_t);
 void pinMode(uint8_t, uint8_t);

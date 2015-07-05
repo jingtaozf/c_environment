@@ -15,13 +15,27 @@
 int gpio_pin_fd[MAX_GPIO_NUM+1];
 int gpio_mode_fd[MAX_GPIO_NUM+1];
 int adc_fd[MAX_ADC_NUM+1];
+int init_p = 0;
 //int pwm_fd[MAX_PWM_NUM+1];
 
 
 
-void init()
+int init()
 {
+  if (init_p) {
+    return 1;
+  }
+
     int i;
+  for( i = 0; i<= MAX_GPIO_NUM; ++i) {
+    gpio_pin_fd[i] = 0;
+    gpio_mode_fd[i] = 0;
+  }
+
+  for( i = 0; i<= 5; ++i) {
+    adc_fd[i] = 0;
+  }
+
      char path[1024];
      for( i = 0; i<= MAX_GPIO_NUM; ++i)
      {
@@ -31,7 +45,7 @@ void init()
          if ( gpio_pin_fd[i] < 0 )
          {
              fprintf(stderr, "open %s failed\n", path);
-             return;
+             return 0;
          }
          
          memset(path, 0, sizeof(path));
@@ -40,7 +54,7 @@ void init()
          if ( gpio_mode_fd[i] < 0 )
          {
              fprintf(stderr, "open %s failed\n", path);
-             return;
+             return 0;
          } 
      }
      
@@ -52,8 +66,9 @@ void init()
          if ( adc_fd[i] < 0 )
          {
              fprintf(stderr, "open %s failed\n", path);
-             return;
+             return 0;
          }
      }
-
+     init_p = 1;
+     return init_p;
 }
